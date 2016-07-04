@@ -1,0 +1,453 @@
+name: "fast_v1"
+layer {
+  name: "dummy"
+  type: "DummyData"
+  top: "data"
+  dummy_data_param {
+    shape {
+      dim: 1
+      dim: 1
+      dim: 112
+      dim: 112
+    }
+    data_filler {
+      type: "gaussian"
+    }
+  }
+} # 1*1*112*112
+
+layer {
+  name: "conv1_0"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 8
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*8*110*110
+
+layer {
+  name: "relu1_0"
+  type: "PReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+}
+
+layer {
+  name: "pool1"
+  type: "Convolution"
+  bottom: "conv1_1"
+  top: "pool1"
+  param {
+    lr_mult: 2
+    decay_mult: 0 
+  }
+  convolution_param {
+    num_output: 8 
+    kernel_size: 3
+    stride: 2
+    group: 8 
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.111 
+    }
+  }
+} # 1*8*54*54
+
+layer {
+  name: "relu_pool1"
+  type: "PReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+
+layer {
+  name: "conv2_0"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2_0"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 16 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*16*52*52
+
+layer {
+  name: "relu2_0"
+  type: "PReLU"
+  bottom: "conv2_0"
+  top: "conv2_0"
+}
+
+layer {
+  name: "conv2_1"
+  type: "Convolution"
+  bottom: "conv2_0"
+  top: "conv2_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 16 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*16*50*50
+
+layer {
+  name: "relu2_1"
+  type: "PReLU"
+  bottom: "conv2_1"
+  top: "conv2_1"
+}
+
+layer {
+  name: "pool2"
+  type: "Convolution"
+  bottom: "conv2_1"
+  top: "pool2"
+  param {
+    lr_mult: 2
+    decay_mult: 0 
+  }
+  convolution_param {
+    num_output: 8 
+    kernel_size: 3
+    stride: 2
+    group: 8 
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.111 
+    }
+  }
+} # 1*8*24*24
+
+layer {
+  name: "relu_pool2"
+  type: "PReLU"
+  bottom: "pool2"
+  top: "pool2"
+}
+
+layer {
+  name: "conv3_0"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3_0"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*16*22*22
+
+layer {
+  name: "relu3_0"
+  type: "PReLU"
+  bottom: "conv3_0"
+  top: "conv3_0"
+}
+
+layer {
+  name: "conv3_1"
+  type: "Convolution"
+  bottom: "conv3_0"
+  top: "conv3_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*16*20*20
+
+layer {
+  name: "relu3_1"
+  type: "PReLU"
+  bottom: "conv3_1"
+  top: "conv3_1"
+}
+
+layer {
+  name: "conv3_2"
+  type: "Convolution"
+  bottom: "conv3_1"
+  top: "conv3_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 32 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*32*18*18
+
+layer {
+  name: "relu3_2"
+  type: "PReLU"
+  bottom: "conv3_2"
+  top: "conv3_2"
+}
+
+layer {
+  name: "pool3"
+  type: "Convolution"
+  bottom: "conv3_2"
+  top: "pool3"
+  param {
+    lr_mult: 2
+    decay_mult: 0 
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 3
+    stride: 2
+    group: 32
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.111 
+    }
+  }
+} # 1*32*8*8
+
+layer {
+  name: "relu_pool3"
+  type: "PReLU"
+  bottom: "pool3"
+  top: "pool3"
+}
+
+layer {
+  name: "conv4_0"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv4_0"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*64*6*6
+
+layer {
+  name: "relu4_0"
+  type: "PReLU"
+  bottom: "conv4_0"
+  top: "conv4_0"
+}
+
+layer {
+  name: "conv4_1"
+  type: "Convolution"
+  bottom: "conv4_0"
+  top: "conv4_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128 
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*128*4*4
+
+layer {
+  name: "relu4_1"
+  type: "PReLU"
+  bottom: "conv4_1"
+  top: "conv4_1"
+}
+
+layer {
+  name: "conv4_2"
+  type: "Convolution"
+  bottom: "conv4_1"
+  top: "conv4_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*256*2*2
+
+layer {
+  name: "relu4_2"
+  type: "PReLU"
+  bottom: "conv4_2"
+  top: "conv4_2"
+}
+
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "conv4_2"
+  top: "ip1"
+  inner_product_param {
+    num_output: 400
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*400
+
+layer {
+  name: "relu_ip1"
+  type: "PReLU"
+  bottom: "ip1"
+  top: "ip1"
+}
+
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "ip1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 136
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+} # 1*136
